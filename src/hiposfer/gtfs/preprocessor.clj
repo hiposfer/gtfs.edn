@@ -1,4 +1,4 @@
-(ns hiposfer.gtfs.edn
+(ns hiposfer.gtfs.preprocessor
   "parse the Markdown GTFS spec definition and returns it as Clojure data structures.
 
   Uses several heuristics to guess how to interpret the data.
@@ -122,4 +122,4 @@
   (spit out (with-out-str (pprint/pprint (parse (slurp url))))))
 
 ;(parse (slurp url))
-;(-main "gtfs.edn/reference.edn")
+;(-main "resources/reference.edn")

@@ -1,0 +1,9 @@
+
+language: clojure
+jdk:
+- oraclejdk8
+script:
+- lein clean
+- lein compile
+- lein check
+- lein eastwood

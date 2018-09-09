@@ -1,6 +1,7 @@
 # gtfs.edn
 
 [![Build Status](https://travis-ci.com/hiposfer/gtfs.edn.svg?branch=master)](https://travis-ci.com/hiposfer/gtfs.edn)
+[![Clojars Project](https://img.shields.io/clojars/v/hiposfer/gtfs.edn.svg)](https://clojars.org/hiposfer/gtfs.edn)
 
 The General Transit Feed Specification (GTFS) as pure edn data
 

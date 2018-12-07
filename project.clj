@@ -1,4 +1,4 @@
-(defproject hiposfer/gtfs.edn "0.1.2"
+(defproject hiposfer/gtfs.edn "0.2.0"
   :description "A simple gtfs library that exposes the GTFS spec as edn data"
   :url "https://github.com/hiposfer/kamal"
   :license {:name "LGPLv3"

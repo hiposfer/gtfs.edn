@@ -2,8 +2,8 @@
   "functionality that creates a mapping between GTFS feed files and clojure
    keywords"
   (:require [clojure.string :as str]
-            [clojure.edn :as edn]
-            [clojure.java.io :as io]))
+            #?(:clj [clojure.edn :as edn])
+            #?(:clj [clojure.java.io :as io])))
 
 (defn- some*
   "an alternative version of Clojure's some which uses reduce instead of
@@ -14,7 +14,11 @@
           nil
           coll))
 
-(def gtfs-spec (edn/read-string (slurp (io/resource "reference.edn"))))
+#?(:clj (defmacro read-edn
+          [resource]
+          `(edn/read-string (slurp (io/resource ~resource)))))
+
+(def gtfs-spec (read-edn "reference.edn"))
 
 (def identifiers (for [feed (:feeds gtfs-spec)
                        field (:fields feed)

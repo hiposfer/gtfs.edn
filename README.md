@@ -13,7 +13,7 @@ dont want to manually recreate it.
 
 # Usage
 
-This project can be used in two ways, dependending on how you wish to use it.
+This project can be used in two ways:
 
 - as a Clojure(script) library
 
@@ -24,14 +24,19 @@ convenience functions exposed through the `hiposfer.gtfs.edn` namespace.
 (ns my.namespace
   (:require [hiposfer.gtfs.edn :as gtfs])) 
 
+;; fetch the reference gtfs spec first
+;; ONLY for clojure -> in clojurescript you would need to use the git submodule
+;; approach. See below
+(def gtfs-spec (gtfs/spec))
+
 ;; fetch all gtfs fields that are required
-(filter :required gtfs/fields)
+(filter :required (gtfs/fields gtfs-spec))
 
 ;; fetch all gtfs fields that represent a dataset unique attribute
-(filter :unique gtfs/fields)
+(filter :unique (gtfs/fields gtfs-spec))
 
 ;; fetch all gtfs fields for the "agency.txt" feed
-(filter #(= "agency.txt" (:filename %)) gtfs/fields)
+(filter #(= "agency.txt" (:filename %)) (gtfs/fields gtfs-spec))
 ```
 
 - as a git submodule

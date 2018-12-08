@@ -17,7 +17,7 @@
 
 #?(:clj (defmacro reference
           []
-          `(edn/read-string (slurp (io/resource "reference.edn")))))
+          (edn/read-string (clojure.core/slurp (io/resource "reference.edn")))))
 
 (defn- identifiers
   [reference]

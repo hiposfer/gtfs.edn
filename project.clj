@@ -1,4 +1,4 @@
-(defproject hiposfer/gtfs.edn "0.2.0-SNAPSHOT"
+(defproject hiposfer/gtfs.edn "0.2.0-SNAPSHOT2"
   :description "A simple gtfs library that exposes the GTFS spec as edn data"
   :url "https://github.com/hiposfer/kamal"
   :license {:name "LGPLv3"
@@ -9,4 +9,5 @@
   :profiles {:dev {:dependencies [[markdown2clj "0.1.3"]]
                    :plugins [[jonase/eastwood "0.2.6"]]}}
   ;; deploy to clojars as - lein deploy releases
-  :deploy-repositories [["releases" {:sign-releases false :url "https://clojars.org/repo"}]])
+  :deploy-repositories [["releases" {:sign-releases false :url "https://clojars.org/repo"}]
+                        ["snapshots" {:sign-releases false :url "https://clojars.org/repo"}]])

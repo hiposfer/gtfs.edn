@@ -14,14 +14,14 @@
           nil
           coll))
 
-#?(:clj (defn reference
+#?(:clj (defn spec
           []
           (edn/read-string (clojure.core/slurp (io/resource "reference.edn")))))
 
 (defn identifiers
   "returns a sequence of fields from the gtfs spec that are marked as DATASET UNIQUE"
-  [reference]
-  (for [feed  (:feeds reference)
+  [spec]
+  (for [feed  (:feeds spec)
         field (:fields feed)
         :when (:unique field)]
     field))
@@ -78,9 +78,9 @@
 
   Useful to have a direct mapping between GTFS fields and Clojure fully
   qualified keywords"
-  [reference]
-  (let [dataset-unique (identifiers reference)]
-    (for [feed  (:feeds reference)
+  [spec]
+  (let [dataset-unique (identifiers spec)]
+    (for [feed  (:feeds spec)
           :let [ns-name (feed-namespace feed)]
           field (:fields feed)]
       (let [k (gtfs-mapping dataset-unique ns-name field)]
@@ -90,17 +90,18 @@
   "given a gtfs feed and field name returns its field data from the gtfs/field
 
   A single fully qualified keyword is also accepted as argument"
-  ([reference filename field-name]
+  ([spec filename field-name]
    (reduce (fn [_ v] (when (and (= filename (:filename v))
                                 (= field-name (:field-name v)))
                        (reduced v)))
            nil
-           (fields reference)))
-  ([reference k]
+           (fields spec)))
+  ([spec k]
    (reduce (fn [_ v] (when (= k (:keyword v)) (reduced v)))
            nil
-           (fields reference))))
-;;(get-mapping "agency.txt" "agency_id")
+           (fields spec))))
+
+;;(get-mapping (spec) "agency.txt" "agency_id")
 ;;(get-mapping "trips.txt" "route_id")
 ;;(get-mapping "calendar.txt" "service_id")
 ;;(get-mapping "calendar_dates.txt" "service_id")

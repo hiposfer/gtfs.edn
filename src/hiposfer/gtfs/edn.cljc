@@ -1,7 +1,6 @@
 (ns hiposfer.gtfs.edn
   "functionality that creates a mapping between GTFS feed files and clojure
    keywords"
-  #?(:cljs (:require-macros hiposfer.gtfs.edn))
   (:require [clojure.string :as str]
             #?(:clj [clojure.edn :as edn])
             #?(:clj [clojure.java.io :as io])))
@@ -15,7 +14,7 @@
           nil
           coll))
 
-#?(:clj (defmacro reference
+#?(:clj (defn reference
           []
           (edn/read-string (clojure.core/slurp (io/resource "reference.edn")))))
 

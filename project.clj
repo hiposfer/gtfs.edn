@@ -1,8 +1,8 @@
-(defproject hiposfer/gtfs.edn "0.2.0-SNAPSHOT3"
+(defproject hiposfer/gtfs.edn "0.2.0-SNAPSHOT4"
   :description "A simple gtfs library that exposes the GTFS spec as edn data"
-  :url "https://github.com/hiposfer/kamal"
+  :url "https://github.com/hiposfer/gtfs.edn"
   :license {:name "LGPLv3"
-            :url "https://github.com/hiposfer/kamal/blob/master/LICENSE"}
+            :url "https://github.com/hiposfer/gtfs.edn/blob/master/LICENSE"}
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.9.0" :scope "provided"]
                  [org.clojure/clojurescript "1.9.946" :scope "provided"]]

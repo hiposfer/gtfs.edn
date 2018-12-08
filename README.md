@@ -27,16 +27,16 @@ convenience functions exposed through the `hiposfer.gtfs.edn` namespace.
 ;; fetch the reference gtfs spec first
 ;; ONLY for clojure -> in clojurescript you would need to use the git submodule
 ;; approach. See below
-(def reference (gtfs/reference))
+(def gtfs-spec (gtfs/spec))
 
 ;; fetch all gtfs fields that are required
-(filter :required (gtfs/fields reference))
+(filter :required (gtfs/fields gtfs-spec))
 
 ;; fetch all gtfs fields that represent a dataset unique attribute
-(filter :unique (gtfs/fields reference))
+(filter :unique (gtfs/fields gtfs-spec))
 
 ;; fetch all gtfs fields for the "agency.txt" feed
-(filter #(= "agency.txt" (:filename %)) (gtfs/fields reference))
+(filter #(= "agency.txt" (:filename %)) (gtfs/fields gtfs-spec))
 ```
 
 - as a git submodule

@@ -18,7 +18,8 @@
           []
           (edn/read-string (clojure.core/slurp (io/resource "reference.edn")))))
 
-(defn- identifiers
+(defn identifiers
+  "returns a sequence of fields from the gtfs spec that are marked as DATASET UNIQUE"
   [reference]
   (for [feed  (:feeds reference)
         field (:fields feed)
@@ -33,12 +34,17 @@
     (str/ends-with? text "s") (subs text 0 (dec (count text)))
     :else text))
 
-(defn- reference?
-  "checks if text references a field name based on its content. A reference
-  is a field name that ends with the same name as a unique field"
-  [identifiers field-name]
-  (some (fn [unique-name] (when (str/ends-with? field-name unique-name) unique-name))
-        (map :field-name identifiers)))
+(defn reference?
+  "given the sequence of dataset unique identifiers, checks if a field
+  represents a reference to another field in the spec.
+
+  NOTE: this is not guaranteed to work as it is based on heuristics"
+  [identifiers field]
+  (some (fn [unique]
+          (when (and (str/ends-with? (:field-name field) (:field-name unique))
+                     (not (:unique field)))
+            unique))
+        identifiers))
 
 (defn- gtfs-mapping
   "returns a namespaced keyword that will represent this field in datascript"
@@ -54,7 +60,7 @@
       (keyword ns-name (subs field-name (inc (count ns-name))))
 
       ;; "trip_route_id" -> :trip/route
-      (reference? dataset-unique field-name)
+      (reference? dataset-unique field)
       (keyword ns-name (subs field-name 0 (- (count field-name) (count "_id"))))
 
       ;; "stop_time_pickup_type" -> :stop_time/pickup_type
@@ -100,3 +106,7 @@
 ;;(get-mapping "calendar_dates.txt" "service_id")
 ;;(get-mapping :calendar/id)
 ;;(get-mapping :calendar_date/service)
+
+;(def f1 (fields (reference)))
+
+;(def f2 (fields (reference)))
